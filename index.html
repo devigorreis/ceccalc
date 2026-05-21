@@ -7,7 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="CEC Calc">
-<link rel="manifest" id="manifestLink">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>CEC Calc — Circulação Extracorpórea</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -1211,6 +1212,15 @@ document.addEventListener('keydown',e=>{
   const idx=inputs.indexOf(document.activeElement);
   if(idx>=0&&idx<inputs.length-1){e.preventDefault();inputs[idx+1].focus();}
 });
+</script>
+<script>
+if("serviceWorker" in navigator){
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(r => console.log("SW registered"))
+      .catch(e => console.log("SW error", e));
+  });
+}
 </script>
 </body>
 </html>
