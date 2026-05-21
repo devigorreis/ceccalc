@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Igor Reis — Desenvolvedor Web · Campo Grande/MS</title>
+<meta name="description" content="Igor Reis, desenvolvedor web com 8 anos de experiência hospitalar. Criador do Monitor Cirúrgico — sistema em produção ativo em Campo Grande/MS e Cuiabá/MT. HTML, CSS, JavaScript e Firebase.">
+<meta property="og:title" content="Igor Reis — Desenvolvedor Web">
+<meta property="og:description" content="Sistema Monitor Cirúrgico em produção real: importação de NF-e, 1.784 produtos, 557 clientes, 334 médicos. 2 cidades atendidas.">
+<meta property="og:image" content="https://raw.githubusercontent.com/devigorreis/portfolio/main/monitorcirurgico.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Igor Reis — Desenvolvedor Web">
+<meta name="twitter:description" content="Sistema Monitor Cirúrgico em produção real. 2 cidades, 1.784 produtos, importação de NF-e.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/devigorreis/portfolio/main/monitorcirurgico.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<script data-goatcounter="https://devigorreis.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:      #ffffff;
+  --bg2:     #f9fafb;
+  --card:    #ffffff;
+  --card2:   #f9fafb;
+  --card3:   #f3f4f6;
+  --green:   #059669;
+  --green2:  #047857;
+  --green-dim: rgba(5,150,105,0.08);
+  --green-border: rgba(5,150,105,0.18);
+  --amber:   #f59e0b;
+  --blue:    #3b82f6;
+  --white:   #111827;
+  --text:    #374151;
+  --muted:   #6b7280;
+  --border:  rgba(0,0,0,0.09);
+  --border2: rgba(0,0,0,0.05);
+  --shadow:  0 4px 24px rgba(0,0,0,0.07);
+  --shadow2: 0 16px 48px rgba(0,0,0,0.10);
+  --r:       14px;
+  --r2:      20px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* ─── CURSOR GLOW ─── */
+.cursor-glow {
+  position: fixed;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(5,150,105,0.035) 0%, transparent 65%);
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  z-index: 0;
+  transition: left 0.12s ease, top 0.12s ease;
+}
+
+/* ─── SCROLL PROGRESS ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--green);
+  z-index: 1001;
+  transition: width 0.1s linear;
+  width: 0%;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  padding: 0 56px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(5,150,105,0.4); }
+  50% { opacity:0.5; box-shadow: 0 0 0 4px rgba(5,150,105,0); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 7px;
+  transition: color 0.18s, background 0.18s;
+}
+
+.nav-links a:hover { color: var(--white); background: var(--bg2); }
+
+.nav-cta {
+  background: var(--green) !important;
+  color: var(--bg) !important;
+  font-weight: 700 !important;
+  margin-left: 8px;
+}
+
+.nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ─── HAMBURGER ─── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--muted);
+  border-radius: 2px;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--green); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--green); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 62px; left: 0; right: 0;
+  background: rgba(255,255,255,0.99);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px 20px;
+  z-index: 998;
+  flex-direction: column;
+  gap: 2px;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border2);
+  transition: color 0.18s;
+}
+.mobile-menu a:last-child { border-bottom: none; color: var(--green); font-weight: 700; }
+.mobile-menu a:hover { color: var(--green); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  align-items: center;
+  padding: 62px 56px 0;
+  max-width: 1240px;
+  margin: 0 auto;
+  gap: 64px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-left { padding-top: 32px; }
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--green-border);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  font-family: 'Fira Code', monospace;
+  animation: fadeUp 0.4s ease both;
+  background: var(--green-dim);
+}
+
+.eyebrow-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2.5s infinite;
+}
+
+.hero h1 {
+  font-weight: 800;
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  margin-bottom: 24px;
+  animation: fadeUp 0.4s ease 0.08s both;
+}
+
+.hero h1 .accent { color: var(--green); }
+.hero h1 .dim { color: var(--muted); font-weight: 300; }
+
+.hero-desc {
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 36px;
+  max-width: 460px;
+  animation: fadeUp 0.4s ease 0.16s both;
+}
+.hero-desc strong { color: var(--white); font-weight: 600; }
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.4s ease 0.24s both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: var(--bg);
+  padding: 12px 24px;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: transform 0.18s, box-shadow 0.18s, opacity 0.18s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(5,150,105,0.28); opacity: 0.95; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  padding: 12px 24px;
+  border-radius: 9px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+}
+.btn-secondary:hover { border-color: var(--green-border); color: var(--green); background: var(--green-dim); }
+
+/* ─── ID CARD ─── */
+.hero-right { animation: fadeUp 0.4s ease 0.24s both; }
+
+.id-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow2);
+}
+.id-card-accent {
+  height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--green2), transparent);
+}
+.id-card-body { padding: 28px; }
+
+.id-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border2);
+}
+.id-avatar {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #05966920 0%, #04785720 100%);
+  border: 1px solid var(--green-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.id-info { flex: 1; }
+.id-name { font-weight: 700; font-size: 0.95rem; letter-spacing: -0.01em; }
+.id-role { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+.id-badge {
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--green);
+  font-family: 'Fira Code', monospace;
+  letter-spacing: 0.05em;
+}
+.id-rows { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+.id-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
+.id-row-label { color: var(--muted); font-family: 'Fira Code', monospace; font-size: 0.68rem; }
+.id-row-value { font-weight: 600; font-size: 0.8rem; }
+.id-row-value.green { color: var(--green); }
+.id-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border2);
+}
+.id-tag {
+  background: var(--border2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 3px 9px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  font-family: 'Fira Code', monospace;
+  color: var(--text);
+}
+
+/* ─── STATS BAR ─── */
+.stats-bar {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--card3);
+}
+.stat {
+  padding: 28px 24px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+  position: relative;
+  transition: background 0.2s;
+}
+.stat:last-child { border-right: none; }
+.stat:hover { background: var(--card); }
+.stat-n {
+  font-weight: 800;
+  font-size: 2.4rem;
+  color: var(--green);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 6px;
+}
+.stat-l {
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+
+/* ─── SECTIONS ─── */
+.section {
+  position: relative;
+  z-index: 1;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 96px 56px;
+}
+
+.s-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.68rem;
+  color: var(--green);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+.s-title {
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-bottom: 52px;
+}
+.s-title em {
+  font-style: normal;
+  color: var(--green);
+  font-weight: 300;
+}
+
+/* ─── SOBRE ─── */
+.sobre-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.sobre-body p {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+.sobre-body p strong { color: var(--white); font-weight: 600; }
+
+.highlight-box {
+  margin-top: 28px;
+  background: linear-gradient(135deg, rgba(5,150,105,0.06) 0%, rgba(5,150,105,0.02) 100%);
+  border: 1px solid var(--green-border);
+  border-radius: var(--r);
+  padding: 22px 24px;
+}
+.highlight-box h4 {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.68rem;
+  color: var(--green);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.highlight-box p {
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.formacao-stack { display: flex; flex-direction: column; gap: 8px; }
+.form-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 18px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: border-color 0.18s, background 0.18s;
+}
+.form-item:hover { border-color: var(--green-border); background: var(--card2); }
+.form-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+.form-title { font-weight: 600; font-size: 0.8rem; margin-bottom: 3px; letter-spacing: -0.01em; }
+.form-sub { font-size: 0.69rem; color: var(--muted); font-family: 'Fira Code', monospace; }
+
+/* ─── PROJETO ─── */
+.projeto-wrapper {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r2);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.projeto-header-bar {
+  height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--green2), transparent);
+}
+.projeto-top {
+  padding: 44px 44px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: start;
+}
+.proj-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  border-radius: 6px;
+  padding: 4px 11px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--green);
+  font-family: 'Fira Code', monospace;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.proj-badge::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2.5s infinite;
+}
+.proj-title {
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+.proj-desc {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.8;
+  max-width: 500px;
+}
+.proj-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 160px;
+}
+.meta-item {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  text-align: center;
+}
+.meta-val {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--green);
+  margin-bottom: 2px;
+}
+.meta-label { font-size: 0.68rem; color: var(--muted); }
+
+/* ─── PROJECT IMAGE ─── */
+.proj-image-wrap {
+  padding: 0 44px;
+  margin-top: 28px;
+}
+.proj-img-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.67rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.proj-img-frame {
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow2);
+}
+.proj-img-frame img { width: 100%; display: block; }
+
+/* ─── STORY ─── */
+.proj-story {
+  padding: 0 44px;
+  margin-top: 40px;
+}
+.proj-story-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.67rem;
+  color: var(--green);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.story-card {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 28px 32px;
+  position: relative;
+}
+.story-quote {
+  font-size: 2.8rem;
+  line-height: 1;
+  color: var(--green);
+  opacity: 0.25;
+  position: absolute;
+  top: 14px; left: 26px;
+  font-family: Georgia, serif;
+}
+.story-card p {
+  color: var(--text);
+  line-height: 1.85;
+  font-size: 0.9rem;
+  padding-top: 12px;
+}
+.story-card p + p { margin-top: 14px; }
+.story-card strong { color: var(--white); font-weight: 600; }
+
+/* ─── FEATURES ─── */
+.features-wrap {
+  margin-top: 36px;
+  border-top: 1px solid var(--border);
+}
+.features-header {
+  padding: 24px 44px 20px;
+}
+.features-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.67rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Featured row */
+.features-featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+}
+.feat-big {
+  background: var(--card2);
+  padding: 28px 32px;
+  transition: background 0.2s;
+  position: relative;
+}
+.feat-big:hover { background: #ecfdf5; }
+.feat-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(5,150,105,0.1);
+  border: 1px solid var(--green-border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--green);
+  font-family: 'Fira Code', monospace;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+.feat-big-icon { font-size: 1.6rem; margin-bottom: 10px; display: block; }
+.feat-big-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 8px; letter-spacing: -0.01em; }
+.feat-big-desc { font-size: 0.8rem; color: var(--text); line-height: 1.65; }
+
+/* Regular grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+}
+.feat {
+  background: var(--card);
+  padding: 22px 24px;
+  transition: background 0.18s;
+}
+.feat:hover { background: var(--card2); }
+.feat-icon { font-size: 1.3rem; margin-bottom: 9px; display: block; }
+.feat-title { font-weight: 600; font-size: 0.8rem; margin-bottom: 5px; letter-spacing: -0.01em; }
+.feat-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.55; }
+
+/* ─── PROJ FOOTER ─── */
+.proj-footer {
+  padding: 20px 44px;
+  background: var(--card3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+}
+.tech-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.tech-pill {
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  font-family: 'Fira Code', monospace;
+  color: var(--green);
+}
+.proj-live {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72rem;
+  color: var(--green);
+  font-family: 'Fira Code', monospace;
+  font-weight: 500;
+}
+.proj-live::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2.5s infinite;
+}
+
+/* ─── TIMELINE ─── */
+.timeline { padding: 40px 0 0; }
+
+.tl-header {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.68rem;
+  color: var(--green);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+.tl-items { position: relative; }
+
+.tl-items::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--green), rgba(5,150,105,0.1));
+}
+
+.tl-item {
+  display: flex;
+  gap: 24px;
+  padding: 0 0 24px 0;
+  position: relative;
+}
+
+.tl-item:last-child { padding-bottom: 0; }
+
+.tl-dot {
+  width: 21px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 4px;
+}
+.tl-dot-inner {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--green);
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+.tl-dot-inner.dim {
+  border-color: var(--muted);
+}
+
+.tl-content { flex: 1; }
+
+.tl-date {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.64rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.tl-title {
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.tl-desc {
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ─── SKILLS ─── */
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.skill-group { margin-bottom: 36px; }
+.skill-group-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.67rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.skill-bars { display: flex; flex-direction: column; gap: 12px; }
+.skill-bar-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.skill-bar-name { font-weight: 600; font-size: 0.82rem; }
+.skill-bar-pct { font-family: 'Fira Code', monospace; font-size: 0.7rem; color: var(--green); }
+.skill-track {
+  height: 3px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.skill-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--green), var(--green2));
+  border-radius: 100px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.1s cubic-bezier(0.16,1,0.3,1);
+}
+.skill-fill.animated { transform: scaleX(1); }
+
+.nicho-cards { display: flex; flex-direction: column; gap: 12px; }
+.nicho-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 20px 22px;
+  transition: border-color 0.18s, background 0.18s;
+}
+.nicho-card:hover { border-color: var(--green-border); background: var(--card2); }
+.nicho-icon { font-size: 1.4rem; margin-bottom: 8px; display: block; }
+.nicho-title { font-weight: 700; font-size: 0.88rem; margin-bottom: 5px; letter-spacing: -0.01em; }
+.nicho-desc { font-size: 0.78rem; color: var(--text); line-height: 1.6; }
+
+/* ─── CONTATO ─── */
+.contato-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.contato-left h2 {
+  font-weight: 800;
+  font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin-bottom: 16px;
+}
+.contato-left h2 em { font-style: normal; color: var(--green); font-weight: 300; }
+.contato-left > p {
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.78;
+  margin-bottom: 32px;
+}
+.contato-items { display: flex; flex-direction: column; gap: 8px; }
+.contato-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 14px 18px;
+  text-decoration: none;
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: border-color 0.18s, transform 0.18s, background 0.18s;
+}
+.contato-link:hover {
+  border-color: var(--green-border);
+  transform: translateX(3px);
+  background: var(--card2);
+  color: var(--green);
+}
+.contato-link-icon {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  background: var(--green-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.disponivel-card {
+  background: var(--card);
+  border: 1px solid var(--green-border);
+  border-radius: var(--r2);
+  padding: 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.disponivel-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(5,150,105,0.05) 0%, transparent 55%);
+  pointer-events: none;
+}
+.disp-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--green-dim);
+  border: 1px solid var(--green-border);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 0.69rem;
+  font-weight: 700;
+  color: var(--green);
+  font-family: 'Fira Code', monospace;
+  letter-spacing: 0.07em;
+  margin-bottom: 20px;
+}
+.disp-status::before {
+  content: '';
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2.5s infinite;
+}
+.disponivel-card h3 {
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.disponivel-card > p {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+.plataformas { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.plat-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 13px;
+  font-size: 0.78rem;
+}
+.plat-name { font-weight: 600; }
+.plat-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.62rem;
+  color: var(--green);
+  background: var(--green-dim);
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* ─── DIVIDER ─── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: var(--card3);
+}
+.footer-left { font-size: 0.78rem; color: var(--muted); }
+.footer-left span { color: var(--green); font-weight: 600; }
+.footer-right {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.67rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero { grid-template-columns: 1fr; padding: 80px 20px 40px; gap: 36px; }
+  .hero-right { display: none; }
+
+  .stats-bar { grid-template-columns: repeat(2,1fr); }
+  .stat { border-right: 1px solid var(--border); }
+  .stat:nth-child(2n) { border-right: none; }
+  .stat:nth-child(n+3) { border-top: 1px solid var(--border); }
+
+  .section { padding: 60px 20px; }
+
+  .sobre-layout { grid-template-columns: 1fr; gap: 36px; }
+
+  .projeto-top { grid-template-columns: 1fr; padding: 28px 20px 0; }
+  .proj-meta { flex-direction: row; flex-wrap: wrap; min-width: auto; }
+  .proj-image-wrap { padding: 0 20px; }
+  .proj-story { padding: 0 20px; }
+  .features-header { padding: 20px 20px 16px; }
+  .features-featured { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: repeat(2,1fr); }
+  .proj-footer { padding: 16px 20px; }
+
+  .skills-layout { grid-template-columns: 1fr; gap: 36px; }
+  .contato-grid { grid-template-columns: 1fr; gap: 36px; }
+
+  footer { padding: 20px 20px; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2.2rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; }
+  .btn-primary, .btn-secondary { justify-content: center; }
+  .stat-n { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollBar"></div>
+<div class="cursor-glow" id="glow"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-dot"></div>
+    Igor Reis · Dev
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#projeto">Projeto</a></li>
+        <li><a href="#pitch">Pitch</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#contato" class="nav-cta">Contratar →</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Menu mobile">
+  <a href="#sobre" class="mob-link">Sobre</a>
+  <a href="#projeto" class="mob-link">Projeto</a>
+  <a href="#pitch" class="mob-link">Pitch</a>
+  <a href="#habilidades" class="mob-link">Habilidades</a>
+  <a href="#contato" class="mob-link">Contratar →</a>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:100%;overflow:hidden;">
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Disponível para projetos
+    </div>
+    <h1>
+      Desenvolvimento web<br>
+      <span class="accent">com experiência</span><br>
+      <span class="dim">real de setor.</span>
+    </h1>
+    <p class="hero-desc">
+      Sou <strong>Igor Reis</strong>, desenvolvedor web, <strong>Bacharel em Ciências Contábeis</strong> e com <strong>8 anos na área hospitalar</strong>. Criador do Monitor Cirúrgico — sistema em produção ativo em <strong>Campo Grande/MS</strong> e <strong>Cuiabá/MT</strong>, com importação de nota fiscal eletrônica, catálogo de produtos e sincronização em tempo real.
+    </p>
+    <div class="hero-actions">
+      <a href="#projeto" class="btn-primary">Ver o projeto →</a>
+      <a href="#contato" class="btn-secondary">Entrar em contato</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="id-card">
+      <div class="id-card-accent"></div>
+      <div class="id-card-body">
+        <div class="id-top">
+          <div class="id-avatar">👨‍💻</div>
+          <div class="id-info">
+            <div class="id-name">Igor Reis</div>
+            <div class="id-role">Desenvolvedor Web · Campo Grande/MS</div>
+          </div>
+          <div class="id-badge">DISPONÍVEL</div>
+        </div>
+        <div class="id-rows">
+          <div class="id-row">
+            <span class="id-row-label">experiência</span>
+            <span class="id-row-value">8+ anos hospitalar</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">nicho</span>
+            <span class="id-row-value green">Saúde &amp; Hospitalar</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">sistema em produção</span>
+            <span class="id-row-value green">Monitor Cirúrgico</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">cidades atendidas</span>
+            <span class="id-row-value green">Campo Grande + Cuiabá</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">graduação</span>
+            <span class="id-row-value">Bacharel em C. Contábeis</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">pós · 2025</span>
+            <span class="id-row-value" style="font-size:0.72rem">BI &amp; Analytics</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">pós · 2024</span>
+            <span class="id-row-value" style="font-size:0.72rem">MBA em Logística e Supply Chain</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">pós · 2020</span>
+            <span class="id-row-value" style="font-size:0.72rem">Logística Empresarial</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">pós · 2018</span>
+            <span class="id-row-value" style="font-size:0.72rem">Direito Tributário</span>
+          </div>
+          <div class="id-row">
+            <span class="id-row-label">Cursando</span>
+            <span class="id-row-value" style="font-size:0.72rem">Análise e Desenvolvimento de Sistemas</span>
+          </div>
+        </div>
+        <div class="id-stack">
+          <span class="id-tag">HTML5</span>
+          <span class="id-tag">CSS3</span>
+          <span class="id-tag">JavaScript</span>
+          <span class="id-tag">Firebase</span>
+          <span class="id-tag">PDF.js</span>
+          <span class="id-tag">Firestore</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-n">2</div>
+    <div class="stat-l">Cidades em<br>operação</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">1.784</div>
+    <div class="stat-l">Produtos no<br>catálogo ativo</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">557</div>
+    <div class="stat-l">Clientes<br>cadastrados</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n">334</div>
+    <div class="stat-l">Médicos<br>cadastrados</div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<div class="section" id="sobre">
+  <div class="s-label">// sobre mim</div>
+  <h2 class="s-title">Experiência real,<br><em>soluções reais.</em></h2>
+  <div class="sobre-layout">
+    <div class="sobre-body">
+      <p>Sou <strong>Igor Reis</strong>, desenvolvedor web residente em Campo Grande/MS. <strong>Bacharel em Ciências Contábeis</strong> pela Faculdade Campo Grande, com <strong>8 anos de experiência profissional na área hospitalar</strong> e <strong>7 anos no varejo</strong>, ambas na área de distribuição — o que me dá uma visão única sobre processos, logística e as dores reais de cada setor.</p>
+      <p>Essa vivência me deu algo raro: entendo profundamente os processos hospitalares, as dores do setor e as soluções que realmente fazem diferença no dia a dia das equipes médicas e administrativas. Quando projeto um sistema para a área da saúde, <strong>não preciso que me expliquem o que é OPME, bloco operatório ou consignado</strong> — eu já vivi isso.</p>
+      <p>Estou em transição para a tecnologia, cursando <strong>Análise e Desenvolvimento de Sistemas</strong>, com uma bagagem acadêmica sólida: graduação em Ciências Contábeis e 5 pós-graduações nas áreas de logística, contabilidade, direito tributário e ciência de dados.</p>
+      <div class="highlight-box">
+        <h4>// meu diferencial</h4>
+        <p>Não sou apenas um desenvolvedor — sou alguém que conhece o negócio do cliente por dentro. Quando crio um sistema, não preciso de meses de levantamento de requisitos: eu já conheço os problemas do setor antes de começar a codificar.</p>
+      </div>
+    </div>
+    <div class="formacao-stack">
+      <div class="form-item">
+        <div class="form-icon">💻</div>
+        <div>
+          <div class="form-title">Análise e Desenvolvimento de Sistemas</div>
+          <div class="form-sub">Centro de Ensino FAM · Em curso</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-icon">📊</div>
+        <div>
+          <div class="form-title">Pós em Business Intelligence &amp; Analytics</div>
+          <div class="form-sub">Anhanguera · 2025</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-icon">📦</div>
+        <div>
+          <div class="form-title">MBA em Logística e Cadeia de Suprimentos</div>
+          <div class="form-sub">Anhanguera · 2024</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-icon">🚚</div>
+        <div>
+          <div class="form-title">Pós em Gestão de Logística Empresarial</div>
+          <div class="form-sub">Faculdade Batista MG · 2020</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-icon">⚖️</div>
+        <div>
+          <div class="form-title">Pós em Direito Tributário</div>
+          <div class="form-sub">Rede LFG · 2018</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-icon">🎓</div>
+        <div>
+          <div class="form-title">Graduação em Ciências Contábeis</div>
+          <div class="form-sub">Faculdade Campo Grande · 2014</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- PROJETO -->
+<div class="section" id="projeto">
+  <div class="s-label">// portfólio</div>
+  <h2 class="s-title">Sistema em <em>produção ativa.</em></h2>
+
+  <div class="projeto-wrapper">
+    <div class="projeto-header-bar"></div>
+
+    <div class="projeto-top">
+      <div>
+        <div class="proj-badge">Sistema Hospitalar · Em uso real</div>
+        <div class="proj-title">Monitor Cirúrgico</div>
+        <p class="proj-desc">Sistema web completo de gestão de procedimentos cirúrgicos para uma empresa de representação de materiais médicos e OPMEs. Operacional em <strong>Campo Grande/MS</strong> e <strong>Cuiabá/MT</strong> — projeto real, em uso real, resolvendo problemas reais.</p>
+      </div>
+      <div class="proj-meta">
+        <div class="meta-item">
+          <div class="meta-val">HTML · CSS · JS</div>
+          <div class="meta-label">Stack frontend</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">Firebase</div>
+          <div class="meta-label">Backend &amp; cloud</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">PDF.js</div>
+          <div class="meta-label">Leitura de NF-e</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-val">2 cidades</div>
+          <div class="meta-label">Em produção</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-image-wrap">
+      <div class="proj-img-label">// preview do sistema</div>
+      <div class="proj-img-frame">
+        <img src="https://raw.githubusercontent.com/devigorreis/portfolio/main/monitorcirurgico.png" alt="Monitor Cirúrgico — Sistema em produção" loading="lazy">
+      </div>
+    </div>
+
+    <div class="proj-story">
+      <div class="proj-story-label">// a história por trás do projeto</div>
+      <div class="story-card">
+        <div class="story-quote">"</div>
+        <p>Na rotina da empresa, o <strong>time do estoque</strong> é responsável por emitir as notas fiscais de saída dos produtos para os procedimentos cirúrgicos — mas não havia nenhum controle centralizado sobre o que havia saído, para qual cirurgia, em qual hospital. Sem esse controle, era impossível saber quais materiais precisavam ser cobrados e quais sobras deveriam ser retiradas após o procedimento.</p>
+        <p>O resultado era <strong>perda de material, falhas de cobrança e retrabalho</strong> para toda a equipe. Eu vivia esse problema no dia a dia e decidi resolver — criando do zero um sistema web que centralizasse todas as informações de cada procedimento em tempo real, acessível por qualquer dispositivo.</p>
+        <p>O Monitor Cirúrgico nasceu da <strong>necessidade real de quem vive o setor</strong> — e hoje está em evolução constante, com novas funcionalidades entregues todos os meses.</p>
+      </div>
+    </div>
+
+    <div class="features-wrap">
+      <div class="features-header">
+        <div class="features-label">// funcionalidades do sistema</div>
+      </div>
+
+      <!-- Featured: 2 new features -->
+      <div class="features-featured">
+        <div class="feat-big">
+          <span class="feat-new">✦ Novo — Mai/2026</span>
+          <span class="feat-big-icon">📄</span>
+          <div class="feat-big-title">Importação de NF-e via PDF</div>
+          <div class="feat-big-desc">Upload de nota fiscal eletrônica (DANFE) com extração automática de: nome do paciente, hospital, data de cirurgia, médico, convênio, produtos com código de fábrica, número de lote e quantidade, número e total da NF.</div>
+        </div>
+        <div class="feat-big">
+          <span class="feat-new">✦ Novo — Mai/2026</span>
+          <span class="feat-big-icon">🗂️</span>
+          <div class="feat-big-title">Catálogo de 1.784 Produtos</div>
+          <div class="feat-big-desc">Banco de dados completo de produtos com código de fábrica, descrição e autocomplete inteligente. Ao digitar o código, o sistema preenche automaticamente a descrição do produto — elimina erros de digitação.</div>
+        </div>
+      </div>
+
+      <!-- Regular features grid -->
+      <div class="features-grid">
+        <div class="feat">
+          <span class="feat-icon">📊</span>
+          <div class="feat-title">Dashboard em Tempo Real</div>
+          <div class="feat-desc">Visão geral de todos os procedimentos com atualização automática via Firestore onSnapshot.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🔄</span>
+          <div class="feat-title">Automação de Status</div>
+          <div class="feat-desc">Em Separação disparado automaticamente D+2 e D+1 antes da cirurgia, sem intervenção manual.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">📋</span>
+          <div class="feat-title">Gestão Completa</div>
+          <div class="feat-desc">557 clientes, 334 médicos, hospitais, convênios e vendedores cadastrados.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🖨️</span>
+          <div class="feat-title">Fichas OPME por Lote</div>
+          <div class="feat-desc">Geração de fichas com produtos separados por lote individual, referências e assinatura médica.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">📎</span>
+          <div class="feat-title">Upload de Documentos</div>
+          <div class="feat-desc">Anexo de imagens e PDFs diretamente nos procedimentos via drag &amp; drop.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🔐</span>
+          <div class="feat-title">Autenticação Segura</div>
+          <div class="feat-desc">Login com Firebase Auth, proteção de rotas e controle de sessão por unidade.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">📱</span>
+          <div class="feat-title">100% Responsivo</div>
+          <div class="feat-desc">Interface adaptada para celular, tablet e desktop. Usado em campo e no escritório.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">⚡</span>
+          <div class="feat-title">Sincronização Real</div>
+          <div class="feat-desc">Todas as unidades veem as alterações instantaneamente — sem atualizar a página.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🌙</span>
+          <div class="feat-title">Modo Escuro</div>
+          <div class="feat-desc">Alternância entre tema claro e escuro com preferência salva por usuário no navegador.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">📤</span>
+          <div class="feat-title">Exportação CSV</div>
+          <div class="feat-desc">Exporta todos os procedimentos para planilha com um clique, pronto para análise no Excel.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">✅</span>
+          <div class="feat-title">Checklist por Procedimento</div>
+          <div class="feat-desc">Lista de verificação de itens por cirurgia com marcação de conclusão em tempo real.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">📅</span>
+          <div class="feat-title">Calendário de Agendamentos</div>
+          <div class="feat-desc">Visualização de todos os procedimentos em formato de calendário mensal navegável.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🔔</span>
+          <div class="feat-title">Status Reagendado</div>
+          <div class="feat-desc">Novo status com alerta de confirmação de data, destaque visual e preenchimento automático da retirada em D+1.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">🔍</span>
+          <div class="feat-title">Busca Inteligente</div>
+          <div class="feat-desc">Debounce na busca, filtro persistente entre sessões e atalho Alt+N para novo pedido sem mouse.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">💾</span>
+          <div class="feat-title">Rascunho Automático</div>
+          <div class="feat-desc">Formulário preservado ao fechar acidentalmente — sem perda de dados em meio ao preenchimento.</div>
+        </div>
+        <div class="feat">
+          <span class="feat-icon">📆</span>
+          <div class="feat-title">Resumo de Datas</div>
+          <div class="feat-desc">Painel com contagem de cirurgias por período: hoje, amanhã, semana e mês em andamento.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE inside project card -->
+    <div style="padding: 0 44px 40px;">
+      <div class="timeline">
+        <div class="tl-header">// evolução do sistema · entregas recentes</div>
+        <div class="tl-items">
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">Mai 2026</div>
+              <div class="tl-title">Modo escuro, exportação CSV, checklist e calendário</div>
+              <div class="tl-desc">Tema claro/escuro por usuário, exportação de dados em planilha, checklist de itens por cirurgia e visualização em calendário mensal.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">Mai 2026</div>
+              <div class="tl-title">Status Reagendado com automação de retirada D+1</div>
+              <div class="tl-desc">Novo status com alerta de confirmação de data, destaque visual no campo e preenchimento automático da data de retirada para o dia seguinte à cirurgia.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">Mai 2026</div>
+              <div class="tl-title">Separação automática D+2 e melhorias de UX</div>
+              <div class="tl-desc">Em Separação disparado 2 dias antes da cirurgia. Busca com debounce, atalho Alt+N, filtro persistente, resumo de datas por período e rascunho automático de formulário.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">Mai 2026</div>
+              <div class="tl-title">Atualização dos cadastros: 557 clientes &amp; 334 médicos</div>
+              <div class="tl-desc">Catálogos de clientes e médicos atualizados nas unidades de Campo Grande e Cuiabá.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">Mai 2026</div>
+              <div class="tl-title">Catálogo de produtos: 1.784 itens com código e descrição</div>
+              <div class="tl-desc">Autocomplete por código de fábrica preenche automaticamente a descrição do produto.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">Mai 2026</div>
+              <div class="tl-title">Importação de PDF NF-e com extração de dados</div>
+              <div class="tl-desc">Upload do DANFE lê automaticamente paciente, hospital, médico, convênio, produtos com lote, quantidade, número e valor total da nota.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">Mai 2026</div>
+              <div class="tl-title">Lotes individuais por produto na ficha OPME</div>
+              <div class="tl-desc">Produtos com lotes diferentes geram linhas separadas, respeitando a rastreabilidade hospitalar.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner dim"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">2025</div>
+              <div class="tl-title">Expansão para Cuiabá/MT</div>
+              <div class="tl-desc">Segunda unidade implantada com instância independente, sincronizada com Firebase.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"><div class="tl-dot-inner dim"></div></div>
+            <div class="tl-content">
+              <div class="tl-date">2024</div>
+              <div class="tl-title">Sistema base · Campo Grande/MS</div>
+              <div class="tl-desc">Dashboard em tempo real, gestão de cirurgias, fichas OPME, upload de documentos e autenticação.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-footer">
+      <div class="tech-pills">
+        <span class="tech-pill">HTML5</span>
+        <span class="tech-pill">CSS3</span>
+        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">Firebase Firestore</span>
+        <span class="tech-pill">Firebase Auth</span>
+        <span class="tech-pill">Firebase Storage</span>
+        <span class="tech-pill">PDF.js</span>
+        <span class="tech-pill">GitHub Pages</span>
+      </div>
+      <div class="proj-live">Sistema ativo · 2 cidades</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- PITCH COMERCIAL -->
+<div class="section" id="pitch">
+  <div class="s-label">// produto comercial</div>
+  <h2 class="s-title">Monitor Cirúrgico <em>como serviço.</em></h2>
+
+  <div class="projeto-wrapper" style="padding:0;">
+    <div class="projeto-header-bar" style="background:linear-gradient(90deg,#2ecc71,#27ae60);"></div>
+
+    <!-- INTRO -->
+    <div style="padding:32px 44px 0;">
+      <p style="font-size:0.95rem;color:var(--text);line-height:1.7;max-width:640px;">
+        O Monitor Cirúrgico evoluiu de uma solução interna para um produto pronto para ser licenciado a outros distribuidores de OPME. Abaixo está a proposta comercial completa — do problema que resolve até os planos de assinatura.
+      </p>
+    </div>
+
+    <!-- DOR -->
+    <div style="padding:32px 44px 0;">
+      <div class="features-label" style="margin-bottom:16px;">// como a maioria dos distribuidores opera hoje</div>
+      <div class="features-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">
+        <div class="feat" style="border-top:2px solid rgba(231,76,60,0.5);">
+          <span class="feat-icon">📱</span>
+          <div class="feat-title">Gestão no WhatsApp</div>
+          <div class="feat-desc">Pedidos, confirmações e urgências misturados num grupo. Quem não viu a mensagem, não sabe.</div>
+        </div>
+        <div class="feat" style="border-top:2px solid rgba(231,76,60,0.5);">
+          <span class="feat-icon">📋</span>
+          <div class="feat-title">Planilha desatualizada</div>
+          <div class="feat-desc">Cada um tem uma versão diferente. Ninguém sabe quem separou o material para a cirurgia de amanhã.</div>
+        </div>
+        <div class="feat" style="border-top:2px solid rgba(231,76,60,0.5);">
+          <span class="feat-icon">📞</span>
+          <div class="feat-title">Ligações para confirmar</div>
+          <div class="feat-desc">Vendedor liga pro estoque, estoque liga pro vendedor. Tempo perdido que poderia estar em campo.</div>
+        </div>
+        <div class="feat" style="border-top:2px solid rgba(231,76,60,0.5);">
+          <span class="feat-icon">🚨</span>
+          <div class="feat-title">Urgência sem visibilidade</div>
+          <div class="feat-desc">O material não chegou e a cirurgia começa em 2 horas. Ninguém sabia que era urgente.</div>
+        </div>
+        <div class="feat" style="border-top:2px solid rgba(231,76,60,0.5);">
+          <span class="feat-icon">📦</span>
+          <div class="feat-title">Consignado não retirado</div>
+          <div class="feat-desc">Material devolvido sem registro. OPME consignada parada no hospital sem que ninguém saiba.</div>
+        </div>
+        <div class="feat" style="border-top:2px solid rgba(231,76,60,0.5);">
+          <span class="feat-icon">🏙️</span>
+          <div class="feat-title">Filiais sem sincronismo</div>
+          <div class="feat-desc">Duas cidades operando como ilhas. A gestão não enxerga o todo em tempo real.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI -->
+    <div style="padding:32px 44px 0;">
+      <div class="features-label" style="margin-bottom:16px;">// custo invisível vs. investimento</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div style="background:var(--card2);border:1px solid var(--border);border-top:2px solid rgba(231,76,60,0.5);border-radius:12px;padding:20px;">
+          <div style="font-family:'Fira Code',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#e74c3c;margin-bottom:14px;">⚠ Custo atual</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              <span style="color:var(--text);">Horas/mês em confirmações</span>
+              <span style="font-family:'Fira Code',monospace;color:#e74c3c;font-weight:600;">~20h</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              <span style="color:var(--text);">Retrabalho por info errada</span>
+              <span style="font-family:'Fira Code',monospace;color:#e74c3c;font-weight:600;">~8h</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              <span style="color:var(--text);">Consignado perdido no prazo</span>
+              <span style="font-family:'Fira Code',monospace;color:#e74c3c;font-weight:600;">recorrente</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;">
+              <span style="color:var(--text);">Cirurgia cancelada por falta</span>
+              <span style="font-family:'Fira Code',monospace;color:#e74c3c;font-weight:600;">R$ 5–15k</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--card2);border:1px solid var(--border);border-top:2px solid rgba(46,204,113,0.5);border-radius:12px;padding:20px;">
+          <div style="font-family:'Fira Code',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#2ecc71;margin-bottom:14px;">✓ Investimento no Monitor</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              <span style="color:var(--text);">Plano Pro (2 filiais)</span>
+              <span style="font-family:'Fira Code',monospace;color:#2ecc71;font-weight:600;">R$ 899/mês</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              <span style="color:var(--text);">Implantação e configuração</span>
+              <span style="font-family:'Fira Code',monospace;color:#2ecc71;font-weight:600;">incluso</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              <span style="color:var(--text);">Suporte e atualizações</span>
+              <span style="font-family:'Fira Code',monospace;color:#2ecc71;font-weight:600;">incluso</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.82rem;">
+              <span style="color:var(--text);">Payback estimado</span>
+              <span style="font-family:'Fira Code',monospace;color:#2ecc71;font-weight:600;">1ª cirurgia salva</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLANOS -->
+    <div style="padding:32px 44px 0;">
+      <div class="features-label" style="margin-bottom:20px;">// planos de assinatura</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+
+        <!-- Starter -->
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;">
+          <div style="font-family:'Fira Code',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);">Starter</div>
+          <div style="display:flex;align-items:baseline;gap:4px;">
+            <span style="font-family:'Syne',var(--display,sans-serif);font-size:2rem;font-weight:800;color:var(--white);line-height:1;">499</span>
+            <span style="font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--muted);">R$/mês</span>
+          </div>
+          <div style="font-size:0.8rem;color:var(--text);padding-bottom:12px;border-bottom:1px solid var(--border);">1 filial · até 5 usuários</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Monitor em tempo real</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Notificações push</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Exportação CSV/Excel</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Suporte por e-mail</li>
+          </ul>
+        </div>
+
+        <!-- Pro -->
+        <div style="background:var(--card2);border:1px solid rgba(46,204,113,0.4);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;position:relative;">
+          <div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-family:'Fira Code',monospace;font-size:0.6rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;background:#2ecc71;color:#0a1a0e;padding:3px 12px;border-radius:999px;white-space:nowrap;">Mais escolhido</div>
+          <div style="font-family:'Fira Code',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#2ecc71;">Pro</div>
+          <div style="display:flex;align-items:baseline;gap:4px;">
+            <span style="font-family:'Syne',var(--display,sans-serif);font-size:2rem;font-weight:800;color:var(--white);line-height:1;">899</span>
+            <span style="font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--muted);">R$/mês</span>
+          </div>
+          <div style="font-size:0.8rem;color:var(--text);padding-bottom:12px;border-bottom:1px solid var(--border);">2 filiais · usuários ilimitados</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Tudo do Starter</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>SLA automático</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Dashboard de produtividade</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Timeline de procedimentos</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Fichas OPME digitais</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Suporte prioritário</li>
+          </ul>
+        </div>
+
+        <!-- Enterprise -->
+        <div style="background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;">
+          <div style="font-family:'Fira Code',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);">Enterprise</div>
+          <div style="display:flex;align-items:baseline;gap:4px;">
+            <span style="font-family:'Syne',var(--display,sans-serif);font-size:1.3rem;font-weight:800;color:var(--white);line-height:1;">sob consulta</span>
+          </div>
+          <div style="font-size:0.8rem;color:var(--text);padding-bottom:12px;border-bottom:1px solid var(--border);">3+ filiais · integrações</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:7px;">
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Filiais ilimitadas</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Integração com ERP</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Customizações exclusivas</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Treinamento presencial</li>
+            <li style="font-size:0.8rem;color:var(--text);display:flex;gap:7px;"><span style="color:#2ecc71;font-weight:700;">✓</span>Gerente de conta dedicado</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="padding:32px 44px 40px;">
+      <div style="background:var(--card3);border:1px solid var(--border);border-left:3px solid #2ecc71;border-radius:0 12px 12px 0;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+        <div>
+          <div style="font-family:'Fira Code',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:#2ecc71;margin-bottom:6px;">// interessado?</div>
+          <div style="font-size:0.9rem;color:var(--white);font-weight:600;">Demonstração sem compromisso em 30 minutos.</div>
+          <div style="font-size:0.8rem;color:var(--text);margin-top:4px;">Mostramos o sistema funcionando ao vivo na sua operação.</div>
+        </div>
+        <a href="#contato" class="btn-primary" style="white-space:nowrap;">Solicitar demo →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- HABILIDADES -->
+<div class="section" id="habilidades">
+  <div class="s-label">// habilidades</div>
+  <h2 class="s-title">O que eu <em>domino.</em></h2>
+  <div class="skills-layout">
+    <div>
+      <div class="skill-group">
+        <div class="skill-group-label">// desenvolvimento web</div>
+        <div class="skill-bars">
+          <div>
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">HTML5</span>
+              <span class="skill-bar-pct">85%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+          </div>
+          <div>
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">CSS3</span>
+              <span class="skill-bar-pct">80%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="width:80%"></div></div>
+          </div>
+          <div>
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">JavaScript</span>
+              <span class="skill-bar-pct">75%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="width:75%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">// backend &amp; cloud</div>
+        <div class="skill-bars">
+          <div>
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">Firebase Firestore</span>
+              <span class="skill-bar-pct">80%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="width:80%"></div></div>
+          </div>
+          <div>
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">Firebase Auth</span>
+              <span class="skill-bar-pct">80%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="width:80%"></div></div>
+          </div>
+          <div>
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">Firebase Storage</span>
+              <span class="skill-bar-pct">70%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="width:70%"></div></div>
+          </div>
+          <div>
+            <div class="skill-bar-top">
+              <span class="skill-bar-name">PDF.js (extração NF-e)</span>
+              <span class="skill-bar-pct">65%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="width:65%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group-label" style="font-family:'Fira Code',monospace;font-size:0.67rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)">// nichos de atuação</div>
+      <div class="nicho-cards">
+        <div class="nicho-card">
+          <span class="nicho-icon">🏥</span>
+          <div class="nicho-title">Saúde &amp; Hospitalar</div>
+          <div class="nicho-desc">Sistemas para representantes de materiais médicos, OPMEs, clínicas e consultórios. Conheço o setor de dentro — não há curva de aprendizado sobre o negócio.</div>
+        </div>
+        <div class="nicho-card">
+          <span class="nicho-icon">⚙️</span>
+          <div class="nicho-title">Sistemas Web com Dados Reais</div>
+          <div class="nicho-desc">Sistemas de gestão com banco de dados em tempo real, autenticação, painel administrativo e integrações — como leitura automática de nota fiscal eletrônica.</div>
+        </div>
+        <div class="nicho-card">
+          <span class="nicho-icon">🏢</span>
+          <div class="nicho-title">Presença Digital</div>
+          <div class="nicho-desc">Landing pages e sites institucionais para empresas locais que precisam de presença digital profissional, rápida e bem posicionada.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- CONTATO -->
+<div class="section" id="contato">
+  <div class="contato-grid">
+    <div class="contato-left">
+      <div class="s-label">// contato</div>
+      <h2>Vamos criar algo <em>juntos?</em></h2>
+      <p>Estou disponível para projetos de sites, landing pages e sistemas web. Se você precisa de alguém que entenda tanto de tecnologia quanto do negócio que vai receber o sistema, podemos conversar.</p>
+      <div class="contato-items">
+        <a href="mailto:igorreis89@gmail.com" class="contato-link" aria-label="Enviar e-mail">
+          <div class="contato-link-icon">📧</div>
+          igorreis89@gmail.com
+        </a>
+        <a href="tel:+5567991409831" class="contato-link" aria-label="Ligar">
+          <div class="contato-link-icon">📱</div>
+          (67) 99140-9831
+        </a>
+        <a href="https://linkedin.com/in/ireis89" target="_blank" rel="noopener noreferrer" class="contato-link" aria-label="LinkedIn">
+          <div class="contato-link-icon">💼</div>
+          linkedin.com/in/ireis89
+        </a>
+        <a href="https://wa.me/5567991409831" target="_blank" rel="noopener noreferrer" class="contato-link" aria-label="WhatsApp">
+          <div class="contato-link-icon">💬</div>
+          WhatsApp — resposta rápida
+        </a>
+      </div>
+    </div>
+    <div class="disponivel-card">
+      <div class="disp-status">Disponível agora</div>
+      <h3>Pronto para o seu projeto</h3>
+      <p>Aceito projetos de sites, landing pages e sistemas web. Respondo em até 24h.</p>
+      <div class="plataformas">
+        <div class="plat-item"><span class="plat-name">99Freelas</span><span class="plat-tag">ATIVO</span></div>
+        <div class="plat-item"><span class="plat-name">Workana</span><span class="plat-tag">ATIVO</span></div>
+        <div class="plat-item"><span class="plat-name">Fiverr</span><span class="plat-tag">ATIVO</span></div>
+        <div class="plat-item"><span class="plat-name">LinkedIn</span><span class="plat-tag">ATIVO</span></div>
+      </div>
+      <a href="mailto:igorreis89@gmail.com" class="btn-primary" style="width:100%;justify-content:center;">Enviar mensagem →</a>
+    </div>
+  </div>
+</div>
+
+</div><!-- /overflow wrapper -->
+
+<footer>
+  <div class="footer-left">&copy; 2025–2026 <span>Igor Reis</span> &middot; Campo Grande/MS &middot; Todos os direitos reservados</div>
+  <div class="footer-right">
+    <span id="visit-counter">👁 ...</span>
+    <span>HTML · CSS · JS · Firebase</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll progress bar
+  const scrollBar = document.getElementById('scrollBar');
+  window.addEventListener('scroll', () => {
+    const p = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    scrollBar.style.width = Math.min(p * 100, 100) + '%';
+  }, { passive: true });
+
+  // Cursor glow (desktop only)
+  if (window.matchMedia('(pointer:fine)').matches) {
+    const glow = document.getElementById('glow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    }, { passive: true });
+  }
+
+  // Animate skill bars on scroll
+  const fills = document.querySelectorAll('.skill-fill');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('animated'); });
+  }, { threshold: 0.2 });
+  fills.forEach(f => obs.observe(f));
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('.mob-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // GoatCounter visit counter
+  const el = document.getElementById('visit-counter');
+  if (el) el.innerHTML = '👁 <img src="https://devigorreis.goatcounter.com/counter//portfolio/.svg" style="height:15px;vertical-align:middle;opacity:0.75;" onerror="this.parentElement.style.display=\'none\'">';
+
+  // ─── PROTEÇÃO DE CÓDIGO ───
+  (function() {
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.keyCode === 123) { e.preventDefault(); return false; }
+      if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); return false; }
+      if (e.ctrlKey && e.keyCode === 85) { e.preventDefault(); return false; }
+      if (e.ctrlKey && e.keyCode === 83) { e.preventDefault(); return false; }
+    });
+  })();
+
+  // ── 6. ANIMAÇÃO DOS NÚMEROS NOS STATS ──
+  (function() {
+    var statEls = document.querySelectorAll('.stat-n');
+    statEls.forEach(function(el) {
+      var raw = el.textContent.trim().replace(/\./g, '').replace(/,/g, '');
+      var target = parseInt(raw, 10);
+      if (isNaN(target)) return;
+      el.dataset.target = target;
+      el.textContent = '0';
+      var done = false;
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting || done) return;
+          done = true;
+          obs.disconnect();
+          var startTime = null;
+          var duration = 1400;
+          function step(ts) {
+            if (!startTime) startTime = ts;
+            var p = Math.min((ts - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - p, 3);
+            var cur = Math.round(target * eased);
+            el.textContent = cur.toLocaleString('pt-BR');
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target.toLocaleString('pt-BR');
+          }
+          requestAnimationFrame(step);
+        });
+      }, { threshold: 0.4 });
+      obs.observe(el);
+    });
+  })();
+
+  // ── 7. COPY-TO-CLIPBOARD NOS CONTATOS ──
+  (function() {
+    function showToast(msg) {
+      var t = document.createElement('div');
+      t.textContent = msg;
+      t.style.cssText = 'position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:#059669;color:#fff;padding:8px 22px;border-radius:20px;font-size:0.82rem;font-weight:600;z-index:99999;pointer-events:none;transition:opacity 0.4s;white-space:nowrap;';
+      document.body.appendChild(t);
+      setTimeout(function() { t.style.opacity = '0'; }, 1600);
+      setTimeout(function() { if (t.parentNode) t.remove(); }, 2100);
+    }
+    var email = document.querySelector('.contato-link[aria-label="Enviar e-mail"]');
+    var phone = document.querySelector('.contato-link[aria-label="Ligar"]');
+    if (email) {
+      email.addEventListener('click', function() {
+        navigator.clipboard && navigator.clipboard.writeText('igorreis89@gmail.com').catch(function(){});
+        showToast('✓ E-mail copiado!');
+      });
+    }
+    if (phone) {
+      phone.addEventListener('click', function() {
+        navigator.clipboard && navigator.clipboard.writeText('(67) 99140-9831').catch(function(){});
+        showToast('✓ Telefone copiado!');
+      });
+    }
+  })();
+
+  // ── 8. MICRO-INTERAÇÃO — SETA ANIMADA NOS BOTÕES ──
+  (function() {
+    var style = document.createElement('style');
+    style.textContent = '.btn-arr{display:inline-block;transition:transform 0.22s cubic-bezier(.34,1.56,.64,1);}.btn-primary:hover .btn-arr{transform:translateX(5px);}.btn-secondary:hover .btn-arr{transform:translateX(4px);}';
+    document.head.appendChild(style);
+    document.querySelectorAll('.btn-primary, .btn-secondary').forEach(function(btn) {
+      btn.innerHTML = btn.innerHTML.replace(/→/g, '<span class="btn-arr">→</span>');
+    });
+  })();
+</script>
+
+</body>
+</html>
